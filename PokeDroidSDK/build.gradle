@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'jacoco-android'
+//apply plugin: 'jacoco-android'
+apply plugin: 'net.saliman.cobertura'
 apply plugin: 'com.github.kt3k.coveralls'
 
 android {
@@ -20,12 +21,6 @@ android {
         }
     }
 
-    jacocoAndroidUnitTestReport {
-        csv.enabled false
-        xml.enabled true
-        html.enabled true
-    }
-
 }
 
 dependencies {
@@ -37,3 +32,5 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
 
 }
+
+cobertura.coverageFormats = ['html', 'xml']
