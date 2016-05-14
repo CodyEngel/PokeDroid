@@ -21,11 +21,16 @@ android {
         }
     }
 
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+
 }
 
 dependencies {
     // Unit Testing
     testCompile 'junit:junit:4.12'
+    testCompile 'org.json:json:20160212'
 
     // Source
     compile fileTree(dir: 'libs', include: ['*.jar'])

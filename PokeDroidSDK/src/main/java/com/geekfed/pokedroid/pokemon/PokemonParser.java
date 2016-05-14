@@ -1,5 +1,6 @@
 package com.geekfed.pokedroid.pokemon;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -7,7 +8,24 @@ import org.json.JSONObject;
  */
 public class PokemonParser {
 
-    public PokemonParser(JSONObject pokemonJSON) {
+    JSONObject mPokemonJSON;
 
+    public PokemonParser(JSONObject pokemonJSON) {
+        mPokemonJSON = pokemonJSON;
+    }
+
+    public Pokemon parse() throws JSONException {
+        return new Pokemon.Builder()
+                .id(parsePokemonId())
+                .build();
+    }
+
+    private int parsePokemonId() throws JSONException {
+        return (int) mPokemonJSON.get("id");
+    }
+
+    // Accessors
+    public JSONObject getPokemonJSON() {
+        return mPokemonJSON;
     }
 }

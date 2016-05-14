@@ -1,14 +1,8 @@
 package com.geekfed.pokedroid.pokemon;
 
-import com.geekfed.pokedroid.pokemon.Pokemon;
-import com.geekfed.pokedroid.pokemon.PokemonAbility;
-
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by cody on 5/13/16.
