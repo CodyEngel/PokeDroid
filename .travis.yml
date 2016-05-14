@@ -11,4 +11,7 @@ android:
     - android-23
     - extra-android-m2repository
     
-script: ./gradlew test
+script: ./gradlew assembleDebug
+
+after_success:
+- ./gradlew clean test jacocoTestReport coveralls
