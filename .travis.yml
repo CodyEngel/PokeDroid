@@ -14,4 +14,4 @@ android:
 script: ./gradlew assembleDebug
 
 after_success:
-- ./gradlew clean test jacocoTestReport coveralls
+- ./gradlew clean test cobertura coveralls
