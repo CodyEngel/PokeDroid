@@ -9,5 +9,6 @@ android:
     # The BuildTools version used by your project
     - build-tools-23.0.1
     - android-23
+    - extra-android-m2repository
     
 script: ./gradlew test
