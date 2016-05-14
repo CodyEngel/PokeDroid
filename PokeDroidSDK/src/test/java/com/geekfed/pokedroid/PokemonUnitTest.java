@@ -1,10 +1,14 @@
 package com.geekfed.pokedroid;
 
 import com.geekfed.pokedroid.pokemon.Pokemon;
+import com.geekfed.pokedroid.pokemon.PokemonAbility;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by cody on 5/13/16.
@@ -12,11 +16,15 @@ import static org.junit.Assert.assertEquals;
 public class PokemonUnitTest {
 
     // Test Variables
+    private boolean testIsDefault = false;
+
     private int testId = 43,
         testBaseExperience = 37,
         testHeight = 73,
         testOrder = 7,
         testWeight = 9000;
+
+    private String testName = "Charmander";
 
     @Test
     public void pokemonBuilderWithId() {
@@ -47,4 +55,17 @@ public class PokemonUnitTest {
         Pokemon pokemon = new Pokemon.Builder().weight(testWeight).build();
         assertEquals(testWeight, pokemon.getWeight());
     }
+
+    @Test
+    public void pokemonBuilderWithName() {
+        Pokemon pokemon = new Pokemon.Builder().name(testName).build();
+        assertEquals(testName, pokemon.getName());
+    }
+
+    @Test
+    public void pokemonBuilderWithIsDefault() {
+        Pokemon pokemon = new Pokemon.Builder().isDefault(testIsDefault).build();
+        assertEquals(testIsDefault, pokemon.isDefault());
+    }
+    
 }
