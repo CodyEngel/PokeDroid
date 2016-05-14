@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PokeDroid.iml" filepath="$PROJECT_DIR$/PokeDroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PokeDroidSDK/pokedroid2.iml" filepath="$PROJECT_DIR$/PokeDroidSDK/pokedroid2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PokeDroidSDK/PokeDroidSDK.iml" filepath="$PROJECT_DIR$/PokeDroidSDK/PokeDroidSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
