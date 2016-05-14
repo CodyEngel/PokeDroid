@@ -12,6 +12,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class PokemonParserUnitTest {
 
+    private JSONObject pokemonJSON;
+
     // Test Variables
     private boolean testIsDefault = true;
 
@@ -23,22 +25,65 @@ public class PokemonParserUnitTest {
 
     private String testName = "weedle";
 
-    @Test
-    public void pokemonParserWithBaseJSON() throws JSONException {
-        JSONObject testJSON = getBaseJSON();
-        PokemonParser pokemonParser = new PokemonParser(testJSON);
-        assertEquals(testJSON, pokemonParser.getPokemonJSON());
+    @Before
+    public void setup() throws JSONException {
+        pokemonJSON = getPokemonJSON();
     }
 
     @Test
-    public void pokemonParserWithBaseJSONParseSetsPokemonId() throws JSONException {
-        PokemonParser pokemonParser = new PokemonParser(getBaseJSON());
-        Pokemon pokemon = pokemonParser.parse();
+    public void pokemonParserWithBaseJSON() {
+        PokemonParser pokemonParser = new PokemonParser(pokemonJSON);
+        assertEquals(pokemonJSON, pokemonParser.getPokemonJSON());
+    }
 
+    @Test
+    public void pokemonParserWithBaseJSONParseSetsPokemonId() {
+        Pokemon pokemon = parsePokemon();
         assertEquals(testId, pokemon.getId());
     }
 
-    private JSONObject getBaseJSON() throws JSONException {
+    @Test
+    public void pokemonParserWithBaseJSONParseSetsPokemonBaseExperience() {
+        Pokemon pokemon = parsePokemon();
+        assertEquals(testBaseExperience, pokemon.getBaseExperience());
+    }
+
+    @Test
+    public void pokemonParserWithHeightJSONParseSetsPokemonHeight() {
+        Pokemon pokemon = parsePokemon();
+        assertEquals(testHeight, pokemon.getHeight());
+    }
+
+    @Test
+    public void pokemonParserWithOrderJSONParseSetsPokemonOrder() {
+        Pokemon pokemon = parsePokemon();
+        assertEquals(testOrder, pokemon.getOrder());
+    }
+
+    @Test
+    public void pokemonParserWithWeightJSONParseSetsPokemonWeight() {
+        Pokemon pokemon = parsePokemon();
+        assertEquals(testWeight, pokemon.getWeight());
+    }
+
+    @Test
+    public void pokemonParserWithNameJSONParseSetsPokemonName() {
+        Pokemon pokemon = parsePokemon();
+        assertEquals(testName, pokemon.getName());
+    }
+
+    @Test
+    public void pokemonParserWithIsDefaultJSONParseSetsPokemonIsDefault() {
+        Pokemon pokemon = parsePokemon();
+        assertEquals(testIsDefault, pokemon.isDefault());
+    }
+
+    private Pokemon parsePokemon() {
+        PokemonParser pokemonParser = new PokemonParser(pokemonJSON);
+        return pokemonParser.parse();
+    }
+
+    private JSONObject getPokemonJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
 
         jsonObject.put("id", testId);
