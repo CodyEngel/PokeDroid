@@ -1,4 +1,4 @@
-package com.geekfed.pokedroid;
+package com.geekfed.pokedroid.pokemon;
 
 import com.geekfed.pokedroid.pokemon.Pokemon;
 import com.geekfed.pokedroid.pokemon.PokemonAbility;
@@ -67,5 +67,5 @@ public class PokemonUnitTest {
         Pokemon pokemon = new Pokemon.Builder().isDefault(testIsDefault).build();
         assertEquals(testIsDefault, pokemon.isDefault());
     }
-    
+
 }
