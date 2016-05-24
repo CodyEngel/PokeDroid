@@ -2,6 +2,8 @@ package com.geekfed.pokedroid.pokemon;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -60,6 +62,12 @@ public class PokemonUnitTest {
     public void pokemonBuilderWithIsDefault() {
         Pokemon pokemon = new Pokemon.Builder().isDefault(testIsDefault).build();
         assertEquals(testIsDefault, pokemon.isDefault());
+    }
+
+    @Test
+    public void pokemonBuilderWithAbilityList() {
+        ArrayList<PokemonAbility> abilities = new ArrayList<>();
+//        abilities.add(new PokemonAbility(""))
     }
 
 }

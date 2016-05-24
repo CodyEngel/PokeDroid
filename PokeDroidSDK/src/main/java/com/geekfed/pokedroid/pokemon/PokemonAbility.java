@@ -3,7 +3,7 @@ package com.geekfed.pokedroid.pokemon;
 /**
  * Created by cody on 5/13/16.
  */
-public class PokemonAbility {
+public class PokemonAbility extends Object {
 
     private boolean mIsHidden;
     private int mSlot;
@@ -31,6 +31,19 @@ public class PokemonAbility {
 
     public String getAbilityUrl() {
         return mAbilityUrl;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == null) return false;
+        if(getClass() != obj.getClass()) return false;
+
+        if(!((PokemonAbility) obj).getAbilityName().equals(getAbilityName())) return false;
+        if(!((PokemonAbility) obj).getAbilityUrl().equals(getAbilityUrl())) return false;
+        if(((PokemonAbility) obj).getSlot() != getSlot()) return false;
+        if(((PokemonAbility) obj).isHidden() != isHidden()) return false;
+
+        return true;
     }
 
     // TODO: 5/23/16 need to add the ability to get additional ability info from url, see Ability class

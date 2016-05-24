@@ -43,6 +43,20 @@ public class PokemonAbilityUnitTest {
         assertEquals(testAbilityUrl, getTestPokemonAbility().getAbilityUrl());
     }
 
+    @Test
+    public void pokemonAbilityDifferentObjectsWithSameValuesEqualEachOther() {
+        PokemonAbility firstPokemonAbility = getTestPokemonAbility();
+        PokemonAbility secondPokemonAbility = getTestPokemonAbility();
+        assertTrue(firstPokemonAbility.equals(secondPokemonAbility));
+    }
+
+    @Test
+    public void pokemonAbilityDifferentObjectsWithDifferentValuesDontEqualEachOther() {
+        PokemonAbility firstPokemonAbility = getTestPokemonAbility();
+        PokemonAbility secondPokemonAbility = new PokemonAbility("", "", false, 0);
+        assertFalse(firstPokemonAbility.equals(secondPokemonAbility));
+    }
+
     private PokemonAbility getTestPokemonAbility() {
         return new PokemonAbility(testAbilityName, testAbilityUrl, false, testSlot);
     }
