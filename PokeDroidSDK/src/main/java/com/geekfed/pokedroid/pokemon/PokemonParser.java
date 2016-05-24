@@ -53,7 +53,6 @@ public class PokemonParser {
     private ArrayList<PokemonAbility> parsePokemonAbilities() throws JSONException {
         ArrayList<PokemonAbility> pokemonAbilities = new ArrayList<>();
 
-
         if(mPokemonJSON.has(JSON_KEY_ABILITIES_ARRAY)) {
             JSONArray pokemonAbilityJSONArray = mPokemonJSON.getJSONArray(JSON_KEY_ABILITIES_ARRAY);
             for(int i = 0; i < pokemonAbilityJSONArray.length(); i++) {

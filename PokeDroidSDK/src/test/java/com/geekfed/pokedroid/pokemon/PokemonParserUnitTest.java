@@ -106,7 +106,7 @@ public class PokemonParserUnitTest {
         return pokemonParser.parse();
     }
 
-    private JSONObject getBasePokemonJSON() throws JSONException { // TODO: 5/23/16 need to test on different JSON configurations (some keys could be missing)
+    private JSONObject getBasePokemonJSON() throws JSONException {
         JSONObject jsonObject = new JSONObject();
 
         jsonObject.put(PokemonParser.JSON_KEY_ID, testId);
