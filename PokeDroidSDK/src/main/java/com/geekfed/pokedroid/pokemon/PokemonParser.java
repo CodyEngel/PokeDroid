@@ -3,6 +3,8 @@ package com.geekfed.pokedroid.pokemon;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Created by cody on 5/14/16.
  */
@@ -24,6 +26,7 @@ public class PokemonParser {
     public Pokemon parse() {
         try {
             return new Pokemon.Builder()
+                    .abilities(parsePokemonAbilities())
                     .baseExperience(parsePokemonBaseExperience())
                     .height(parsePokemonHeight())
                     .id(parsePokemonId())
@@ -36,6 +39,10 @@ public class PokemonParser {
             ex.printStackTrace();
         }
 
+        return null;
+    }
+
+    private ArrayList<PokemonAbility> parsePokemonAbilities() {
         return null;
     }
 
