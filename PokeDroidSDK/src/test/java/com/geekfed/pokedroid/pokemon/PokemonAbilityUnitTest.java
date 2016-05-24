@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class PokemonAbilityUnitTest {
 
     // Test Variables
-    private int testSlot = 54;
+    private int testSlot = 3;
     private String testAbilityName = "run-away",
         testAbilityUrl = "http://pokeapi.co/api/v2/ability/50/";
 

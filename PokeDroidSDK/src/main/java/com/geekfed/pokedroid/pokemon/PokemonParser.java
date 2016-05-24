@@ -11,19 +11,19 @@ import java.util.ArrayList;
  */
 public class PokemonParser {
 
-    private static String JSON_KEY_ABILITIES_ARRAY = "abilities";
-    private static String JSON_KEY_ABILITY_IS_HIDDEN = "is_hidden";
-    private static String JSON_KEY_ABILITY_SLOT = "slot";
-    private static String JSON_KEY_ABILITY_NAME = "name";
-    private static String JSON_KEY_ABILITY_URL = "url";
-    private static String JSON_KEY_ABILITY_OBJECT = "ability";
-    private static String JSON_KEY_BASE_EXPERIENCE = "base_experience";
-    private static String JSON_KEY_HEIGHT = "height";
-    private static String JSON_KEY_ID = "id";
-    private static String JSON_KEY_IS_DEFAULT = "is_default";
-    private static String JSON_KEY_NAME = "name";
-    private static String JSON_KEY_ORDER = "order";
-    private static String JSON_KEY_WEIGHT = "weight";
+    public static final String JSON_KEY_ABILITIES_ARRAY = "abilities";
+    public static final String JSON_KEY_ABILITY_IS_HIDDEN = "is_hidden";
+    public static final String JSON_KEY_ABILITY_SLOT = "slot";
+    public static final String JSON_KEY_ABILITY_NAME = "name";
+    public static final String JSON_KEY_ABILITY_URL = "url";
+    public static final String JSON_KEY_ABILITY_OBJECT = "ability";
+    public static final String JSON_KEY_BASE_EXPERIENCE = "base_experience";
+    public static final String JSON_KEY_HEIGHT = "height";
+    public static final String JSON_KEY_ID = "id";
+    public static final String JSON_KEY_IS_DEFAULT = "is_default";
+    public static final String JSON_KEY_NAME = "name";
+    public static final String JSON_KEY_ORDER = "order";
+    public static final String JSON_KEY_WEIGHT = "weight";
 
     JSONObject mPokemonJSON;
 
@@ -53,16 +53,19 @@ public class PokemonParser {
     private ArrayList<PokemonAbility> parsePokemonAbilities() throws JSONException {
         ArrayList<PokemonAbility> pokemonAbilities = new ArrayList<>();
 
-        JSONArray pokemonAbilityJSONArray = mPokemonJSON.getJSONArray(JSON_KEY_ABILITIES_ARRAY);
-        for(int i = 0; i < pokemonAbilityJSONArray.length(); i++) {
-            JSONObject pokemonAbilityJSON = pokemonAbilityJSONArray.getJSONObject(i);
-            JSONObject abilityJSON = pokemonAbilityJSON.getJSONObject(JSON_KEY_ABILITY_OBJECT);
-            pokemonAbilities.add(new PokemonAbility(
-                    abilityJSON.getString(JSON_KEY_ABILITY_NAME),
-                    abilityJSON.getString(JSON_KEY_ABILITY_URL),
-                    pokemonAbilityJSON.getBoolean(JSON_KEY_ABILITY_IS_HIDDEN),
-                    pokemonAbilityJSON.getInt(JSON_KEY_ABILITY_SLOT)
-            ));
+
+        if(mPokemonJSON.has(JSON_KEY_ABILITIES_ARRAY)) {
+            JSONArray pokemonAbilityJSONArray = mPokemonJSON.getJSONArray(JSON_KEY_ABILITIES_ARRAY);
+            for(int i = 0; i < pokemonAbilityJSONArray.length(); i++) {
+                JSONObject pokemonAbilityJSON = pokemonAbilityJSONArray.getJSONObject(i);
+                JSONObject abilityJSON = pokemonAbilityJSON.getJSONObject(JSON_KEY_ABILITY_OBJECT);
+                pokemonAbilities.add(new PokemonAbility(
+                        abilityJSON.getString(JSON_KEY_ABILITY_NAME),
+                        abilityJSON.getString(JSON_KEY_ABILITY_URL),
+                        pokemonAbilityJSON.getBoolean(JSON_KEY_ABILITY_IS_HIDDEN),
+                        pokemonAbilityJSON.getInt(JSON_KEY_ABILITY_SLOT)
+                ));
+            }
         }
 
         return pokemonAbilities;

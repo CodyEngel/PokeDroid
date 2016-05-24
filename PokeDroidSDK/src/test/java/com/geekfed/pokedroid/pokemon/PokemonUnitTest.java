@@ -67,7 +67,14 @@ public class PokemonUnitTest {
     @Test
     public void pokemonBuilderWithAbilityList() {
         ArrayList<PokemonAbility> abilities = new ArrayList<>();
-//        abilities.add(new PokemonAbility(""))
+        abilities.add(getTestPokemonAbility());
+
+        Pokemon pokemon = new Pokemon.Builder().abilities(abilities).build();
+        assertEquals(abilities, pokemon.getAbilities());
+    }
+
+    private PokemonAbility getTestPokemonAbility() {
+        return new PokemonAbility("run-away", "http://pokeapi.co/api/v2/ability/50/", true, 3);
     }
 
 }
