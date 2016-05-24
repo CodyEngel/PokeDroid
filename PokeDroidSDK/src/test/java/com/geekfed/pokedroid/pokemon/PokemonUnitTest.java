@@ -1,14 +1,10 @@
-package com.geekfed.pokedroid;
-
-import com.geekfed.pokedroid.pokemon.Pokemon;
-import com.geekfed.pokedroid.pokemon.PokemonAbility;
+package com.geekfed.pokedroid.pokemon;
 
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by cody on 5/13/16.
@@ -67,5 +63,18 @@ public class PokemonUnitTest {
         Pokemon pokemon = new Pokemon.Builder().isDefault(testIsDefault).build();
         assertEquals(testIsDefault, pokemon.isDefault());
     }
-    
+
+    @Test
+    public void pokemonBuilderWithAbilityList() {
+        ArrayList<PokemonAbility> abilities = new ArrayList<>();
+        abilities.add(getTestPokemonAbility());
+
+        Pokemon pokemon = new Pokemon.Builder().abilities(abilities).build();
+        assertEquals(abilities, pokemon.getAbilities());
+    }
+
+    private PokemonAbility getTestPokemonAbility() {
+        return new PokemonAbility("run-away", "http://pokeapi.co/api/v2/ability/50/", true, 3);
+    }
+
 }
