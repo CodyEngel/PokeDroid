@@ -11,22 +11,34 @@ import java.util.ArrayList;
  */
 public class PokemonParser {
 
-    public static final String JSON_KEY_ABILITIES_ARRAY = "abilities";
-    public static final String JSON_KEY_ABILITY_IS_HIDDEN = "is_hidden";
-    public static final String JSON_KEY_ABILITY_SLOT = "slot";
-    public static final String JSON_KEY_ABILITY_NAME = "name";
-    public static final String JSON_KEY_ABILITY_URL = "url";
-    public static final String JSON_KEY_ABILITY_OBJECT = "ability";
+    // Abilities
+    public static final String JSON_KEY_ABILITIES_ARRAY     = "abilities";
+    public static final String JSON_KEY_ABILITY_IS_HIDDEN   = "is_hidden";
+    public static final String JSON_KEY_ABILITY_SLOT        = "slot";
+    public static final String JSON_KEY_ABILITY_NAME        = "name";
+    public static final String JSON_KEY_ABILITY_URL         = "url";
+    public static final String JSON_KEY_ABILITY_OBJECT      = "ability";
+
     public static final String JSON_KEY_BASE_EXPERIENCE = "base_experience";
+
+    // Forms
     public static final String JSON_KEY_FORMS_ARRAY = "forms";
-    public static final String JSON_KEY_FORMS_NAME = "name";
-    public static final String JSON_KEY_FORMS_URL = "url";
-    public static final String JSON_KEY_HEIGHT = "height";
-    public static final String JSON_KEY_ID = "id";
-    public static final String JSON_KEY_IS_DEFAULT = "is_default";
-    public static final String JSON_KEY_NAME = "name";
-    public static final String JSON_KEY_ORDER = "order";
-    public static final String JSON_KEY_WEIGHT = "weight";
+    public static final String JSON_KEY_FORMS_NAME  = "name";
+    public static final String JSON_KEY_FORMS_URL   = "url";
+
+    // Game Indicies
+    public static final String JSON_KEY_GAME_INDICES_ARRAY          = "game_indices";
+    public static final String JSON_KEY_GAME_INDICES_VERSION        = "version";
+    public static final String JSON_KEY_GAME_INDICES_VERSION_URL    = "url";
+    public static final String JSON_KEY_GAME_INDICES_VERSION_NAME   = "name";
+    public static final String JSON_KEY_GAME_INDICES_GAME_INDEX     = "game_index";
+
+    public static final String JSON_KEY_HEIGHT      = "height";
+    public static final String JSON_KEY_ID          = "id";
+    public static final String JSON_KEY_IS_DEFAULT  = "is_default";
+    public static final String JSON_KEY_NAME        = "name";
+    public static final String JSON_KEY_ORDER       = "order";
+    public static final String JSON_KEY_WEIGHT      = "weight";
 
     JSONObject mPokemonJSON;
 
@@ -44,6 +56,7 @@ public class PokemonParser {
                     .abilities(parsePokemonAbilities())
                     .baseExperience(parsePokemonBaseExperience())
                     .forms(parsePokemonForms())
+                    .gameIndicies(parsePokemonGameIndices())
                     .height(parsePokemonHeight())
                     .id(parsePokemonId())
                     .isDefault(parsePokemonIsDefault())
@@ -99,6 +112,24 @@ public class PokemonParser {
         return pokemonForms;
     }
 
+    private ArrayList<PokemonGameIndex> parsePokemonGameIndices() throws JSONException {
+        ArrayList<PokemonGameIndex> pokemonGameIndices = new ArrayList<>();
+
+        JSONArray gameIndicesJSONArray = getJSONArray(JSON_KEY_GAME_INDICES_ARRAY);
+        if(gameIndicesJSONArray != null) {
+            for(int i = 0, size = gameIndicesJSONArray.length(); i < size; i++) {
+                JSONObject gameIndexJSON = gameIndicesJSONArray.getJSONObject(i);
+                pokemonGameIndices.add(new PokemonGameIndex(
+                    gameIndexJSON.getInt(JSON_KEY_GAME_INDICES_GAME_INDEX),
+                    gameIndexJSON.getJSONObject(JSON_KEY_GAME_INDICES_VERSION).getString(JSON_KEY_GAME_INDICES_VERSION_NAME),
+                    gameIndexJSON.getJSONObject(JSON_KEY_GAME_INDICES_VERSION).getString(JSON_KEY_GAME_INDICES_VERSION_URL)
+                ));
+            }
+        }
+
+        return pokemonGameIndices;
+    }
+
     private int parsePokemonHeight() throws JSONException {
         return (int) mPokemonJSON.get(JSON_KEY_HEIGHT);
     }
@@ -121,6 +152,14 @@ public class PokemonParser {
 
     private int parsePokemonWeight() throws JSONException {
         return (int) mPokemonJSON.get(JSON_KEY_WEIGHT);
+    }
+
+    private JSONArray getJSONArray(String key) throws JSONException {
+        if(mPokemonJSON.has(key)) {
+            return mPokemonJSON.getJSONArray(key);
+        }
+
+        return null;
     }
 
     // Accessors
