@@ -8,7 +8,7 @@ public class PokemonAbility extends Object {
     private boolean mIsHidden;
     private int mSlot;
     private String mAbilityName,
-        mAbilityUrl;
+            mAbilityUrl;
 
     public PokemonAbility(String abilityName, String abilityUrl, boolean isHidden, int slot) {
         mAbilityName = abilityName;

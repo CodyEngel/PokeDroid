@@ -11,21 +11,40 @@ import java.util.ArrayList;
  */
 public class PokemonParser {
 
-    public static final String JSON_KEY_ABILITIES_ARRAY = "abilities";
-    public static final String JSON_KEY_ABILITY_IS_HIDDEN = "is_hidden";
-    public static final String JSON_KEY_ABILITY_SLOT = "slot";
-    public static final String JSON_KEY_ABILITY_NAME = "name";
-    public static final String JSON_KEY_ABILITY_URL = "url";
-    public static final String JSON_KEY_ABILITY_OBJECT = "ability";
+    // Abilities
+    public static final String JSON_KEY_ABILITIES_ARRAY     = "abilities";
+    public static final String JSON_KEY_ABILITY_IS_HIDDEN   = "is_hidden";
+    public static final String JSON_KEY_ABILITY_SLOT        = "slot";
+    public static final String JSON_KEY_ABILITY_NAME        = "name";
+    public static final String JSON_KEY_ABILITY_URL         = "url";
+    public static final String JSON_KEY_ABILITY_OBJECT      = "ability";
+
     public static final String JSON_KEY_BASE_EXPERIENCE = "base_experience";
-    public static final String JSON_KEY_HEIGHT = "height";
-    public static final String JSON_KEY_ID = "id";
-    public static final String JSON_KEY_IS_DEFAULT = "is_default";
-    public static final String JSON_KEY_NAME = "name";
-    public static final String JSON_KEY_ORDER = "order";
-    public static final String JSON_KEY_WEIGHT = "weight";
+
+    // Forms
+    public static final String JSON_KEY_FORMS_ARRAY = "forms";
+    public static final String JSON_KEY_FORMS_NAME  = "name";
+    public static final String JSON_KEY_FORMS_URL   = "url";
+
+    // Game Indicies
+    public static final String JSON_KEY_GAME_INDICES_ARRAY          = "game_indices";
+    public static final String JSON_KEY_GAME_INDICES_VERSION        = "version";
+    public static final String JSON_KEY_GAME_INDICES_VERSION_URL    = "url";
+    public static final String JSON_KEY_GAME_INDICES_VERSION_NAME   = "name";
+    public static final String JSON_KEY_GAME_INDICES_GAME_INDEX     = "game_index";
+
+    public static final String JSON_KEY_HEIGHT      = "height";
+    public static final String JSON_KEY_ID          = "id";
+    public static final String JSON_KEY_IS_DEFAULT  = "is_default";
+    public static final String JSON_KEY_NAME        = "name";
+    public static final String JSON_KEY_ORDER       = "order";
+    public static final String JSON_KEY_WEIGHT      = "weight";
 
     JSONObject mPokemonJSON;
+
+    public PokemonParser(String json) throws JSONException {
+        mPokemonJSON = new JSONObject(json);
+    }
 
     public PokemonParser(JSONObject pokemonJSON) {
         mPokemonJSON = pokemonJSON;
@@ -36,6 +55,8 @@ public class PokemonParser {
             return new Pokemon.Builder()
                     .abilities(parsePokemonAbilities())
                     .baseExperience(parsePokemonBaseExperience())
+                    .forms(parsePokemonForms())
+                    .gameIndicies(parsePokemonGameIndices())
                     .height(parsePokemonHeight())
                     .id(parsePokemonId())
                     .isDefault(parsePokemonIsDefault())
@@ -54,9 +75,9 @@ public class PokemonParser {
         ArrayList<PokemonAbility> pokemonAbilities = new ArrayList<>();
 
         if(mPokemonJSON.has(JSON_KEY_ABILITIES_ARRAY)) {
-            JSONArray pokemonAbilityJSONArray = mPokemonJSON.getJSONArray(JSON_KEY_ABILITIES_ARRAY);
-            for(int i = 0; i < pokemonAbilityJSONArray.length(); i++) {
-                JSONObject pokemonAbilityJSON = pokemonAbilityJSONArray.getJSONObject(i);
+            JSONArray abilityJSONArray = mPokemonJSON.getJSONArray(JSON_KEY_ABILITIES_ARRAY);
+            for(int i = 0, size = abilityJSONArray.length(); i < size; i++) {
+                JSONObject pokemonAbilityJSON = abilityJSONArray.getJSONObject(i);
                 JSONObject abilityJSON = pokemonAbilityJSON.getJSONObject(JSON_KEY_ABILITY_OBJECT);
                 pokemonAbilities.add(new PokemonAbility(
                         abilityJSON.getString(JSON_KEY_ABILITY_NAME),
@@ -72,6 +93,41 @@ public class PokemonParser {
 
     private int parsePokemonBaseExperience() throws JSONException {
         return (int) mPokemonJSON.get(JSON_KEY_BASE_EXPERIENCE);
+    }
+
+    private ArrayList<PokemonForm> parsePokemonForms() throws JSONException {
+        ArrayList<PokemonForm> pokemonForms = new ArrayList<>();
+
+        if(mPokemonJSON.has(JSON_KEY_FORMS_ARRAY)) {
+            JSONArray formsJSONArray = mPokemonJSON.getJSONArray(JSON_KEY_FORMS_ARRAY);
+            for(int i = 0, size = formsJSONArray.length(); i < size; i++) {
+                JSONObject formJSON = formsJSONArray.getJSONObject(i);
+                pokemonForms.add(new PokemonForm(
+                    formJSON.getString(JSON_KEY_FORMS_NAME),
+                    formJSON.getString(JSON_KEY_FORMS_URL)
+                ));
+            }
+        }
+
+        return pokemonForms;
+    }
+
+    private ArrayList<PokemonGameIndex> parsePokemonGameIndices() throws JSONException {
+        ArrayList<PokemonGameIndex> pokemonGameIndices = new ArrayList<>();
+
+        JSONArray gameIndicesJSONArray = getJSONArray(JSON_KEY_GAME_INDICES_ARRAY);
+        if(gameIndicesJSONArray != null) {
+            for(int i = 0, size = gameIndicesJSONArray.length(); i < size; i++) {
+                JSONObject gameIndexJSON = gameIndicesJSONArray.getJSONObject(i);
+                pokemonGameIndices.add(new PokemonGameIndex(
+                    gameIndexJSON.getInt(JSON_KEY_GAME_INDICES_GAME_INDEX),
+                    gameIndexJSON.getJSONObject(JSON_KEY_GAME_INDICES_VERSION).getString(JSON_KEY_GAME_INDICES_VERSION_NAME),
+                    gameIndexJSON.getJSONObject(JSON_KEY_GAME_INDICES_VERSION).getString(JSON_KEY_GAME_INDICES_VERSION_URL)
+                ));
+            }
+        }
+
+        return pokemonGameIndices;
     }
 
     private int parsePokemonHeight() throws JSONException {
@@ -96,6 +152,14 @@ public class PokemonParser {
 
     private int parsePokemonWeight() throws JSONException {
         return (int) mPokemonJSON.get(JSON_KEY_WEIGHT);
+    }
+
+    private JSONArray getJSONArray(String key) throws JSONException {
+        if(mPokemonJSON.has(key)) {
+            return mPokemonJSON.getJSONArray(key);
+        }
+
+        return null;
     }
 
     // Accessors

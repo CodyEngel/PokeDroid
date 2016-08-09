@@ -1,6 +1,5 @@
 package com.geekfed.pokedroid.pokemon;
 
-import com.geekfed.pokedroid.common.VersionGameIndex;
 import com.geekfed.pokedroid.item.Item;
 import com.geekfed.pokedroid.move.Move;
 
@@ -13,7 +12,7 @@ public class Pokemon {
 
     private final ArrayList<PokemonAbility> mAbilities;
     private final ArrayList<PokemonForm> mForms;
-    private final ArrayList<VersionGameIndex> mGameIndicies;
+    private final ArrayList<PokemonGameIndex> mGameIndicies;
     private final ArrayList<Item> mHeldItems;
     private final ArrayList<LocationAreaEncounter> mLocationAreaEncounters;
     private final ArrayList<Move> mMoves;
@@ -57,7 +56,7 @@ public class Pokemon {
         return mForms;
     }
 
-    public ArrayList<VersionGameIndex> getGameIndicies() {
+    public ArrayList<PokemonGameIndex> getGameIndices() {
         return mGameIndicies;
     }
 
@@ -120,7 +119,7 @@ public class Pokemon {
     public static class Builder {
         private ArrayList<PokemonAbility> mAbilities;
         private ArrayList<PokemonForm> mForms;
-        private ArrayList<VersionGameIndex> mGameIndicies;
+        private ArrayList<PokemonGameIndex> mGameIndicies;
         private ArrayList<Item> mHeldItems;
         private ArrayList<LocationAreaEncounter> mLocationAreaEncounters;
         private ArrayList<Move> mMoves;
@@ -148,7 +147,7 @@ public class Pokemon {
             return this;
         }
 
-        public Builder gameIndicies(ArrayList<VersionGameIndex> gameIndices) {
+        public Builder gameIndicies(ArrayList<PokemonGameIndex> gameIndices) {
             mGameIndicies = gameIndices;
             return this;
         }
