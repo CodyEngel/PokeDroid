@@ -6,6 +6,9 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -101,6 +104,35 @@ public class PokemonParserUnitTest {
         assertTrue(getSecondPokemonAbility().equals(pokemon.getAbilities().get(1)));
     }
 
+    @Test
+    public void pokemonParserWithSingleFormButterfree() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getButterfreeJson()).parse();
+
+        assertEquals(1, pokemon.getForms().size());
+        assertEquals("butterfree", pokemon.getForms().get(0).getName());
+        assertEquals("http://pokeapi.co/api/v2/pokemon-form/12/", pokemon.getForms().get(0).getFormUrl());
+    }
+
+    @Test
+    public void pokemonParserWithMultipleFormsDeerling() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getDeerlingJSON()).parse();
+
+        assertEquals(4, pokemon.getForms().size());
+
+        // first form
+        assertEquals("deerling-winter", pokemon.getForms().get(0).getName());
+        assertEquals("http://pokeapi.co/api/v2/pokemon-form/10070/", pokemon.getForms().get(0).getFormUrl());
+        // second form
+        assertEquals("deerling-autumn", pokemon.getForms().get(1).getName());
+        assertEquals("http://pokeapi.co/api/v2/pokemon-form/10069/", pokemon.getForms().get(1).getFormUrl());
+        // third form
+        assertEquals("deerling-summer", pokemon.getForms().get(2).getName());
+        assertEquals("http://pokeapi.co/api/v2/pokemon-form/10068/", pokemon.getForms().get(2).getFormUrl());
+        // fourth form
+        assertEquals("deerling-spring", pokemon.getForms().get(3).getName());
+        assertEquals("http://pokeapi.co/api/v2/pokemon-form/585/", pokemon.getForms().get(3).getFormUrl());
+    }
+
     private Pokemon parsePokemon() {
         PokemonParser pokemonParser = new PokemonParser(pokemonJSON);
         return pokemonParser.parse();
@@ -160,5 +192,19 @@ public class PokemonParserUnitTest {
 
     private PokemonAbility getSecondPokemonAbility() {
         return new PokemonAbility("stay", "http://pokeapi.co/api/v2/ability/51/", false, 2);
+    }
+
+    private String loadJson(String fileName) {
+        InputStream is = getClass().getClassLoader().getResourceAsStream(String.format("%s.json", fileName));
+        Scanner scanner = new Scanner(is).useDelimiter("\\A");
+        return scanner.hasNext() ? scanner.next() : "";
+    }
+
+    private String getButterfreeJson() {
+        return loadJson("pokemon_butterfree");
+    }
+
+    private String getDeerlingJSON() {
+        return loadJson("pokemon_deerling");
     }
 }

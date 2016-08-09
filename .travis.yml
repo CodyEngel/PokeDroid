@@ -1,5 +1,11 @@
 language: android
+
 jdk: oraclejdk8
+
+branches:
+  only:
+    - master
+
 env:
   matrix:
     - ANDROID_TARGET=android-23 ANDROID_ABI=armabi-v7a
