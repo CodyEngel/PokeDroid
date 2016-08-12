@@ -41,8 +41,6 @@ public class PokemonParser {
     public static final String JSON_KEY_ABILITY_URL         = "url";
     public static final String JSON_KEY_ABILITY_OBJECT      = "ability";
 
-    public static final String JSON_KEY_BASE_EXPERIENCE = "base_experience";
-
     // Forms
     public static final String JSON_KEY_FORMS_ARRAY = "forms";
     public static final String JSON_KEY_FORMS_NAME  = "name";
@@ -61,12 +59,15 @@ public class PokemonParser {
     public static final String JSON_KEY_HELD_ITEMS_NAME     = "name";
     public static final String JSON_KEY_HELD_ITEMS_URL      = "url";
 
-    public static final String JSON_KEY_HEIGHT      = "height";
-    public static final String JSON_KEY_ID          = "id";
-    public static final String JSON_KEY_IS_DEFAULT  = "is_default";
-    public static final String JSON_KEY_NAME        = "name";
-    public static final String JSON_KEY_ORDER       = "order";
-    public static final String JSON_KEY_WEIGHT      = "weight";
+    // One off JSON Keys
+    public static final String JSON_KEY_BASE_EXPERIENCE             = "base_experience";
+    public static final String JSON_KEY_HEIGHT                      = "height";
+    public static final String JSON_KEY_ID                          = "id";
+    public static final String JSON_KEY_IS_DEFAULT                  = "is_default";
+    public static final String JSON_KEY_LOCATION_AREA_ENCOUNTERS    = "location_area_encounters";
+    public static final String JSON_KEY_NAME                        = "name";
+    public static final String JSON_KEY_ORDER                       = "order";
+    public static final String JSON_KEY_WEIGHT                      = "weight";
 
     JSONObject mPokemonJSON;
 
@@ -89,6 +90,7 @@ public class PokemonParser {
                     .height(parsePokemonHeight())
                     .id(parsePokemonId())
                     .isDefault(parsePokemonIsDefault())
+                    .locationAreaEncounters(parsePokemonLocationAreaEncounters())
                     .name(parsePokemonName())
                     .order(parsePokemonOrder())
                     .weight(parsePokemonWeight())
@@ -118,10 +120,6 @@ public class PokemonParser {
         }
 
         return pokemonAbilities;
-    }
-
-    private int parsePokemonBaseExperience() throws JSONException {
-        return (int) mPokemonJSON.get(JSON_KEY_BASE_EXPERIENCE);
     }
 
     private ArrayList<PokemonForm> parsePokemonForms() throws JSONException {
@@ -176,28 +174,40 @@ public class PokemonParser {
         return heldItems;
     }
 
+    private int parsePokemonBaseExperience() throws JSONException {
+        return mPokemonJSON.getInt(JSON_KEY_BASE_EXPERIENCE);
+    }
+
     private int parsePokemonHeight() throws JSONException {
-        return (int) mPokemonJSON.get(JSON_KEY_HEIGHT);
+        return mPokemonJSON.getInt(JSON_KEY_HEIGHT);
     }
 
     private int parsePokemonId() throws JSONException {
-        return (int) mPokemonJSON.get(JSON_KEY_ID);
+        return mPokemonJSON.getInt(JSON_KEY_ID);
     }
 
     private boolean parsePokemonIsDefault() throws JSONException {
-        return (boolean) mPokemonJSON.get(JSON_KEY_IS_DEFAULT);
+        return mPokemonJSON.getBoolean(JSON_KEY_IS_DEFAULT);
+    }
+
+    private String parsePokemonLocationAreaEncounters() throws JSONException {
+        if(mPokemonJSON.has(JSON_KEY_LOCATION_AREA_ENCOUNTERS)) {
+            return mPokemonJSON.getString(JSON_KEY_LOCATION_AREA_ENCOUNTERS);
+        }
+
+        return null;
     }
 
     private String parsePokemonName() throws JSONException {
-        return (String) mPokemonJSON.get(JSON_KEY_NAME);
+        return mPokemonJSON.getString(JSON_KEY_NAME);
     }
 
     private int parsePokemonOrder() throws JSONException {
-        return (int) mPokemonJSON.get(JSON_KEY_ORDER);
+        return mPokemonJSON.getInt(JSON_KEY_ORDER);
     }
 
     private int parsePokemonWeight() throws JSONException {
-        return (int) mPokemonJSON.get(JSON_KEY_WEIGHT);
+        return mPokemonJSON.getInt(JSON_KEY_WEIGHT);
     }
 
     private JSONArray getJSONArray(String key) throws JSONException {

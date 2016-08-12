@@ -36,7 +36,6 @@ public class Pokemon {
     private final ArrayList<PokemonForm> mForms;
     private final ArrayList<PokemonGameIndex> mGameIndicies;
     private final ArrayList<PokemonHeldItem> mHeldItems;
-    private final ArrayList<LocationAreaEncounter> mLocationAreaEncounters;
     private final ArrayList<Move> mMoves;
     private final ArrayList<Stat> mStats;
     private final ArrayList<PokemonType> mTypes;
@@ -48,6 +47,7 @@ public class Pokemon {
     private final int mWeight;
     private final PokemonSpecies mSpecies;
     private final PokemonSprites mSprites;
+    private final String mLocationAreaEncounters;
     private final String mName;
 
     private Pokemon(Builder builder) {
@@ -86,7 +86,7 @@ public class Pokemon {
         return mHeldItems;
     }
 
-    public ArrayList<LocationAreaEncounter> getLocationAreaEncounters() {
+    public String getLocationAreaEncounters() {
         return mLocationAreaEncounters;
     }
 
@@ -143,7 +143,6 @@ public class Pokemon {
         private ArrayList<PokemonForm> mForms;
         private ArrayList<PokemonGameIndex> mGameIndicies;
         private ArrayList<PokemonHeldItem> mHeldItems;
-        private ArrayList<LocationAreaEncounter> mLocationAreaEncounters;
         private ArrayList<Move> mMoves;
         private ArrayList<Stat> mStats;
         private ArrayList<PokemonType> mTypes;
@@ -155,6 +154,7 @@ public class Pokemon {
         private int mWeight;
         private PokemonSpecies mSpecies;
         private PokemonSprites mSprites;
+        private String mLocationAreaEncounters;
         private String mName;
 
         public Builder() {}
@@ -179,7 +179,7 @@ public class Pokemon {
             return this;
         }
 
-        public Builder locationAreaEncounters(ArrayList<LocationAreaEncounter> locationAreaEncounters) {
+        public Builder locationAreaEncounters(String locationAreaEncounters) {
             mLocationAreaEncounters = locationAreaEncounters;
             return this;
         }
