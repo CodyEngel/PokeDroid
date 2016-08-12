@@ -19,8 +19,8 @@ Currently working on the creation of the Pokemon object, current progress:
 - [x] abilities
 - [x] forms
 - [x] game_indices
-- [ ] held_items
-- [ ] location_area_encounters
+- [x] held_items
+- [x] location_area_encounters
 - [ ] moves
 - [ ] species
 - [ ] sprites

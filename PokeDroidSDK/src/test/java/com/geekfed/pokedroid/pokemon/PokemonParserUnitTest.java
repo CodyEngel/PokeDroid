@@ -127,12 +127,12 @@ public class PokemonParserUnitTest {
     }
 
     @Test
-    public void pokemonParserWithSingleFormButterfree() throws JSONException {
-        Pokemon pokemon = new PokemonParser(getButterfreeJson()).parse();
+    public void pokemonParserWithSingleFormCaterpie() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getCaterpieJSON()).parse();
 
         assertEquals(1, pokemon.getForms().size());
-        assertEquals("butterfree", pokemon.getForms().get(0).getName());
-        assertEquals("http://pokeapi.co/api/v2/pokemon-form/12/", pokemon.getForms().get(0).getFormUrl());
+        assertEquals("caterpie", pokemon.getForms().get(0).getName());
+        assertEquals("http://pokeapi.co/api/v2/pokemon-form/10/", pokemon.getForms().get(0).getFormUrl());
     }
 
     @Test
@@ -156,16 +156,6 @@ public class PokemonParserUnitTest {
         // fourth form
         assertEquals("deerling-spring", pokemon.getForms().get(3).getName());
         assertEquals("http://pokeapi.co/api/v2/pokemon-form/585/", pokemon.getForms().get(3).getFormUrl());
-    }
-
-    @Test
-    public void pokemonParserWithSingleGameIndexButterfree() throws JSONException {
-        Pokemon pokemon = new PokemonParser(getButterfreeJson()).parse();
-
-        assertEquals(1, pokemon.getGameIndices().size());
-        assertEquals(12, pokemon.getGameIndices().get(0).getGameIndex());
-        assertEquals("white-2", pokemon.getGameIndices().get(0).getVersionName());
-        assertEquals("http://pokeapi.co/api/v2/version/22/", pokemon.getGameIndices().get(0).getVersionUrl());
     }
 
     @Test
@@ -201,6 +191,37 @@ public class PokemonParserUnitTest {
         assertEquals(585, pokemon.getGameIndices().get(index).getGameIndex());
         assertEquals("black", pokemon.getGameIndices().get(index).getVersionName());
         assertEquals("http://pokeapi.co/api/v2/version/17/", pokemon.getGameIndices().get(index).getVersionUrl());
+    }
+
+    @Test
+    public void pokemonParserWithHeldItem() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getPikachuJSON()).parse();
+
+        assertEquals(2, pokemon.getHeldItems().size());
+
+        // first held item
+        int index = 0;
+        assertEquals("oran-berry", pokemon.getHeldItems().get(index).getName());
+        assertEquals("http://pokeapi.co/api/v2/item/132/", pokemon.getHeldItems().get(index).getUrl());
+
+        // second held item
+        index = 1;
+        assertEquals("light-ball", pokemon.getHeldItems().get(index).getName());
+        assertEquals("http://pokeapi.co/api/v2/item/213/", pokemon.getHeldItems().get(index).getUrl());
+    }
+
+    @Test
+    public void pokemonParserWithNoHeldItems() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getDeerlingJSON()).parse();
+
+        assertEquals(0, pokemon.getHeldItems().size());
+    }
+
+    @Test
+    public void pokemonParserWithLocationAreaEncounters() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getCaterpieJSON()).parse();
+
+        assertEquals("/api/v2/pokemon/10/encounters", pokemon.getLocationAreaEncounters());
     }
 
     private Pokemon parsePokemon() {
@@ -270,8 +291,12 @@ public class PokemonParserUnitTest {
         return scanner.hasNext() ? scanner.next() : "";
     }
 
-    private String getButterfreeJson() {
-        return loadJson("pokemon_butterfree");
+    private String getPikachuJSON() {
+        return loadJson("pokemon_pikachu");
+    }
+
+    private String getCaterpieJSON() {
+        return loadJson("pokemon_caterpie");
     }
 
     private String getDeerlingJSON() {
