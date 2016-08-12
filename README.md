@@ -6,3 +6,23 @@
 An Android SDK for pokeapi - http://pokeapi.co/
 
 Currently under development... One day I may or may not finish this project.
+
+Currently working on the creation of the Pokemon object, current progress:
+
+- [x] id
+- [x] name
+- [x] base_experience
+- [x] height
+- [x] is_default
+- [x] order
+- [x] weight
+- [x] abilities
+- [x] forms
+- [x] game_indices
+- [ ] held_items
+- [ ] location_area_encounters
+- [ ] moves
+- [ ] species
+- [ ] sprites
+- [ ] stats
+- [ ] types
