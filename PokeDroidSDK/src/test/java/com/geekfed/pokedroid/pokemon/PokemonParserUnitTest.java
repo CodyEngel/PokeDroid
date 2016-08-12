@@ -203,6 +203,23 @@ public class PokemonParserUnitTest {
         assertEquals("http://pokeapi.co/api/v2/version/17/", pokemon.getGameIndices().get(index).getVersionUrl());
     }
 
+    @Test
+    public void pokemonParserWithSingleHeldItem() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getButterfreeJson()).parse();
+
+        assertEquals(1, pokemon.getHeldItems().size());
+
+        assertEquals("silver-powder", pokemon.getHeldItems().get(0).getName());
+        assertEquals("http://pokeapi.co/api/v2/item/199/", pokemon.getHeldItems().get(0).getUrl());
+    }
+
+    @Test
+    public void pokemonParserWithNoHeldItems() throws JSONException {
+        Pokemon pokemon = new PokemonParser(getDeerlingJSON()).parse();
+
+        assertEquals(0, pokemon.getHeldItems().size());
+    }
+
     private Pokemon parsePokemon() {
         PokemonParser pokemonParser = new PokemonParser(pokemonJSON);
         return pokemonParser.parse();

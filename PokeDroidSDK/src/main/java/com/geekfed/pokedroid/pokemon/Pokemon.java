@@ -35,7 +35,7 @@ public class Pokemon {
     private final ArrayList<PokemonAbility> mAbilities;
     private final ArrayList<PokemonForm> mForms;
     private final ArrayList<PokemonGameIndex> mGameIndicies;
-    private final ArrayList<Item> mHeldItems;
+    private final ArrayList<PokemonHeldItem> mHeldItems;
     private final ArrayList<LocationAreaEncounter> mLocationAreaEncounters;
     private final ArrayList<Move> mMoves;
     private final ArrayList<Stat> mStats;
@@ -82,7 +82,7 @@ public class Pokemon {
         return mGameIndicies;
     }
 
-    public ArrayList<Item> getHeldItems() {
+    public ArrayList<PokemonHeldItem> getHeldItems() {
         return mHeldItems;
     }
 
@@ -142,7 +142,7 @@ public class Pokemon {
         private ArrayList<PokemonAbility> mAbilities;
         private ArrayList<PokemonForm> mForms;
         private ArrayList<PokemonGameIndex> mGameIndicies;
-        private ArrayList<Item> mHeldItems;
+        private ArrayList<PokemonHeldItem> mHeldItems;
         private ArrayList<LocationAreaEncounter> mLocationAreaEncounters;
         private ArrayList<Move> mMoves;
         private ArrayList<Stat> mStats;
@@ -174,7 +174,7 @@ public class Pokemon {
             return this;
         }
 
-        public Builder heldItems(ArrayList<Item> heldItems) {
+        public Builder heldItems(ArrayList<PokemonHeldItem> heldItems) {
             mHeldItems = heldItems;
             return this;
         }

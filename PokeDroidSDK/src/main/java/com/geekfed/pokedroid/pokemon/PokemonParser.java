@@ -55,6 +55,12 @@ public class PokemonParser {
     public static final String JSON_KEY_GAME_INDICES_VERSION_NAME   = "name";
     public static final String JSON_KEY_GAME_INDICES_GAME_INDEX     = "game_index";
 
+    // Held Items
+    public static final String JSON_KEY_HELD_ITEMS_ARRAY    = "held_items";
+    public static final String JSON_KEY_HELD_ITEMS_ITEM     = "item";
+    public static final String JSON_KEY_HELD_ITEMS_NAME     = "name";
+    public static final String JSON_KEY_HELD_ITEMS_URL      = "url";
+
     public static final String JSON_KEY_HEIGHT      = "height";
     public static final String JSON_KEY_ID          = "id";
     public static final String JSON_KEY_IS_DEFAULT  = "is_default";
@@ -79,6 +85,7 @@ public class PokemonParser {
                     .baseExperience(parsePokemonBaseExperience())
                     .forms(parsePokemonForms())
                     .gameIndicies(parsePokemonGameIndices())
+                    .heldItems(parsePokemonHeldItems())
                     .height(parsePokemonHeight())
                     .id(parsePokemonId())
                     .isDefault(parsePokemonIsDefault())
@@ -150,6 +157,23 @@ public class PokemonParser {
         }
 
         return pokemonGameIndices;
+    }
+
+    private ArrayList<PokemonHeldItem> parsePokemonHeldItems() throws JSONException {
+        ArrayList<PokemonHeldItem> heldItems = new ArrayList<>();
+
+        JSONArray heldItemsJSONArray = getJSONArray(JSON_KEY_HELD_ITEMS_ARRAY);
+        if(heldItemsJSONArray != null) {
+            for(int i = 0, size = heldItemsJSONArray.length(); i < size; i++) {
+                JSONObject heldItemJSON = heldItemsJSONArray.getJSONObject(i).getJSONObject(JSON_KEY_HELD_ITEMS_ITEM);
+                heldItems.add(new PokemonHeldItem(
+                    heldItemJSON.getString(JSON_KEY_HELD_ITEMS_NAME),
+                    heldItemJSON.getString(JSON_KEY_HELD_ITEMS_URL)
+                ));
+            }
+        }
+
+        return heldItems;
     }
 
     private int parsePokemonHeight() throws JSONException {
