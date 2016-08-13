@@ -25,5 +25,31 @@ package com.geekfed.pokedroid.pokemon;
 /**
  * Created by cody on 5/13/16.
  */
-public class PokemonSprites {
+public class PokemonSprite {
+
+    private String mUrl;
+
+    public PokemonSprite(String url) {
+        mUrl = url;
+    }
+
+    public String getUrl() {
+        return mUrl;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PokemonSprite that = (PokemonSprite) o;
+
+        return mUrl != null ? mUrl.equals(that.mUrl) : that.mUrl == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return mUrl != null ? mUrl.hashCode() : 0;
+    }
 }
