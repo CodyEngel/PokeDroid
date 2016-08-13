@@ -22,7 +22,6 @@
 
 package com.geekfed.pokedroid.pokemon;
 
-import com.geekfed.pokedroid.item.Item;
 import com.geekfed.pokedroid.move.Move;
 
 import java.util.ArrayList;
@@ -46,7 +45,7 @@ public class Pokemon {
     private final int mOrder;
     private final int mWeight;
     private final PokemonSpecies mSpecies;
-    private final PokemonSprites mSprites;
+    private final PokemonSprite mSprites;
     private final String mLocationAreaEncounters;
     private final String mName;
 
@@ -130,7 +129,7 @@ public class Pokemon {
         return mSpecies;
     }
 
-    public PokemonSprites getSprites() {
+    public PokemonSprite getSprites() {
         return mSprites;
     }
 
@@ -153,7 +152,7 @@ public class Pokemon {
         private int mOrder;
         private int mWeight;
         private PokemonSpecies mSpecies;
-        private PokemonSprites mSprites;
+        private PokemonSprite mSprites;
         private String mLocationAreaEncounters;
         private String mName;
 
@@ -234,7 +233,7 @@ public class Pokemon {
             return this;
         }
 
-        public Builder sprites(PokemonSprites sprites) {
+        public Builder sprites(PokemonSprite sprites) {
             mSprites = sprites;
             return this;
         }
