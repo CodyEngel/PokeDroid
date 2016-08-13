@@ -26,4 +26,40 @@ package com.geekfed.pokedroid.pokemon;
  * Created by cody on 5/13/16.
  */
 public class PokemonSpecies {
+
+    private String mName,
+        mUrl;
+
+    public PokemonSpecies(String name, String url) {
+        mName = name;
+        mUrl = url;
+    }
+
+    public String getName() {
+        return mName;
+    }
+
+    public String getUrl() {
+        return mUrl;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PokemonSpecies that = (PokemonSpecies) o;
+
+        if (!mName.equals(that.mName)) return false;
+        return mUrl.equals(that.mUrl);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = mName.hashCode();
+        result = 31 * result + mUrl.hashCode();
+        return result;
+    }
 }
